@@ -121,7 +121,7 @@ if "--fast-compile" in sys.argv:
     sys.argv.remove("--fast-compile")
     oflag = ["-O0"]
 else:
-    oflag = ["-O3"]
+    oflag = ["-O3", "-flto=full", "-march=native"]
 
 # Specific audio drivers source files to compile
 ad_files = []
@@ -352,6 +352,7 @@ for extension_name, extra_macros in zip(extension_names, extra_macros_per_extens
             library_dirs=library_dirs,
             include_dirs=include_dirs,
             extra_compile_args=extra_compile_args,
+            extra_link_args=["-flto=full"],
             define_macros=macros + extra_macros,
         )
     )
